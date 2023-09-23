@@ -31,13 +31,14 @@ class playFairCipher {
                 matrixP[i][j] = newMatrixText.charAt(idex++);
             }
         }
-        System.out.println("The Matrix is: ");
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                System.out.print(matrixP[i][j] + " ");
-            }
-            System.out.println("");
-        }
+        // To Print the Matrix
+        // System.out.println("The Matrix is: ");
+        // for (int i = 0; i < 5; i++) {
+        // for (int j = 0; j < 5; j++) {
+        // System.out.print(matrixP[i][j] + " ");
+        // }
+        // System.out.println("");
+        // }
         String encryptedText = encrypt(text, matrixP);
         String decryptedText = decrypt(encryptedText, matrixP);
         System.out.println("The Encrypted Text is: " + encryptedText);

@@ -33,11 +33,11 @@ The Playfair Cipher is a symmetric-key substitution cipher that operates on pair
 Example:
 Suppose we want to encrypt the message "HELLO" using the Playfair Cipher with the key "KEYWORD." First, we construct a key table:
 
-K E Y W O
-R D A B C
-F G H I L
-M N P Q S
-T U V X Z
+K E Y W O  
+R D A B C  
+F G H I L  
+M N P Q S  
+T U V X Z  
 
 Now, we follow these steps to encrypt "HELLO":
     Step 1: Break the message into digraphs, preserving spaces: "HE LL O"
@@ -62,35 +62,35 @@ Here's how it works:
 
   Step 2: You repeat the keyword to match the length of the message. If the message is "HELLO," the keyword becomes "KEYKE."
 
-  Step 3: You create a table (often called a Vigenère square) with the alphabet written out multiple times, shifting each row by one letter to the right. It looks like this:
+  Step 3: You create a table (often called a Vigenère square) with the alphabet written out multiple times, shifting each row by one letter to the right. It looks like this:  
 
-A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
-B C D E F G H I J K L M N O P Q R S T U V W X Y Z A
-C D E F G H I J K L M N O P Q R S T U V W X Y Z A B
-D E F G H I J K L M N O P Q R S T U V W X Y Z A B C
-E F G H I J K L M N O P Q R S T U V W X Y Z A B C D
-F G H I J K L M N O P Q R S T U V W X Y Z A B C D E
-G H I J K L M N O P Q R S T U V W X Y Z A B C D E F
-H I J K L M N O P Q R S T U V W X Y Z A B C D E F G
-I J K L M N O P Q R S T U V W X Y Z A B C D E F G H
-J K L M N O P Q R S T U V W X Y Z A B C D E F G H I
-K L M N O P Q R S T U V W X Y Z A B C D E F G H I J
-L M N O P Q R S T U V W X Y Z A B C D E F G H I J K
-M N O P Q R S T U V W X Y Z A B C D E F G H I J K L
-N O P Q R S T U V W X Y Z A B C D E F G H I J K L M
-O P Q R S T U V W X Y Z A B C D E F G H I J K L M N
-P Q R S T U V W X Y Z A B C D E F G H I J K L M N O
-Q R S T U V W X Y Z A B C D E F G H I J K L M N O P
-R S T U V W X Y Z A B C D E F G H I J K L M N O P Q
-S T U V W X Y Z A B C D E F G H I J K L M N O P Q R
-T U V W X Y Z A B C D E F G H I J K L M N O P Q R S
-U V W X Y Z A B C D E F G H I J K L M N O P Q R S T
-V W X Y Z A B C D E F G H I J K L M N O P Q R S T U
-W X Y Z A B C D E F G H I J K L M N O P Q R S T U V
-X Y Z A B C D E F G H I J K L M N O P Q R S T U V W
-Y Z A B C D E F G H I J K L M N O P Q R S T U V W X
-Z A B C D E F G H I J K L M N O P Q R S T U V W X Y
-
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z  
+B C D E F G H I J K L M N O P Q R S T U V W X Y Z A  
+C D E F G H I J K L M N O P Q R S T U V W X Y Z A B  
+D E F G H I J K L M N O P Q R S T U V W X Y Z A B C  
+E F G H I J K L M N O P Q R S T U V W X Y Z A B C D  
+F G H I J K L M N O P Q R S T U V W X Y Z A B C D E  
+G H I J K L M N O P Q R S T U V W X Y Z A B C D E F  
+H I J K L M N O P Q R S T U V W X Y Z A B C D E F G  
+I J K L M N O P Q R S T U V W X Y Z A B C D E F G H  
+J K L M N O P Q R S T U V W X Y Z A B C D E F G H I  
+K L M N O P Q R S T U V W X Y Z A B C D E F G H I J  
+L M N O P Q R S T U V W X Y Z A B C D E F G H I J K  
+M N O P Q R S T U V W X Y Z A B C D E F G H I J K L  
+N O P Q R S T U V W X Y Z A B C D E F G H I J K L M  
+O P Q R S T U V W X Y Z A B C D E F G H I J K L M N  
+P Q R S T U V W X Y Z A B C D E F G H I J K L M N O  
+Q R S T U V W X Y Z A B C D E F G H I J K L M N O P  
+R S T U V W X Y Z A B C D E F G H I J K L M N O P Q  
+S T U V W X Y Z A B C D E F G H I J K L M N O P Q R  
+T U V W X Y Z A B C D E F G H I J K L M N O P Q R S  
+U V W X Y Z A B C D E F G H I J K L M N O P Q R S T  
+V W X Y Z A B C D E F G H I J K L M N O P Q R S T U  
+W X Y Z A B C D E F G H I J K L M N O P Q R S T U V  
+X Y Z A B C D E F G H I J K L M N O P Q R S T U V W  
+Y Z A B C D E F G H I J K L M N O P Q R S T U V W X  
+Z A B C D E F G H I J K L M N O P Q R S T U V W X Y  
+  
   Step 4: You match each letter of your message with the corresponding letter in the keyword. Then, you find the letter in the Vigenère square at the intersection of the row with the message letter and the column with the keyword letter. This is the encrypted letter.
 
   Step 5: You repeat this process for each letter in the message, using the keyword cyclically.

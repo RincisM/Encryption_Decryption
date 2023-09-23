@@ -23,7 +23,7 @@ class vigenereCipher {
         // }
         int i = 0;
         while (text.length() > key.length()) {
-            key += key.charAt(i % key.length());
+            key += key.charAt(i % key.length()); //Replicating the Key till the length of the Key reaches the length of the Text.
             i++;
         }
         String encryptedText = encrypt(key, text, matrixV);

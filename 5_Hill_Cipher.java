@@ -23,12 +23,6 @@ class hillCipher {
                 k++;
             }
         }
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
-                System.out.print(keyMatrix[i][j] + " ");
-            }
-            System.out.println(" ");
-        }
         String encryptedText = encrypt(text, keyMatrix, row);
         System.out.println("The Encrypted Text is: " + encryptedText);
         System.out.println("The Decrypted Text is: " + decrypt(encryptedText, keyMatrix, row));
@@ -57,13 +51,27 @@ class hillCipher {
         if (size == 1) {
             return matrix[0][0];
         }
-        int determinant = 0;
-        for (int i = 0; i < size; i++) {
-            int sign = (i % 2 == 0) ? 1 : -1;
-            int cofactor = sign * matrix[0][i] * determinantOfMatrix(minorMatrix(matrix, 0, i));
-            determinant += cofactor;
+        if (size == 2) {
+            int det = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+            return (det + 26) % 26; // Apply modulo to the final result
         }
-        return determinant;
+        int determinant = 0;
+        int sign = 1;
+        for (int i = 0; i < size; i++) {
+            int[][] minorMatrix = new int[size - 1][size - 1];
+            for (int j = 1; j < size; j++) {
+                for (int k = 0; k < size; k++) {
+                    if (k < i) {
+                        minorMatrix[j - 1][k] = matrix[j][k];
+                    } else if (k > i) {
+                        minorMatrix[j - 1][k - 1] = matrix[j][k];
+                    }
+                }
+            }
+            determinant += sign * matrix[0][i] * determinantOfMatrix(minorMatrix);
+            sign = -sign;
+        }
+        return (determinant + 26) % 26; // Apply modulo to the final result
     }
 
     static int[][] adjointMatrix(int[][] matrix) {
@@ -107,28 +115,41 @@ class hillCipher {
         if (determinant == 0) {
             return null; // Matrix is not invertible
         }
-
+        for (int i = 1; i < 26; i++) {
+            if ((i * determinant) % 26 == 1) {
+                determinant = i;
+            }
+        }
         double[][] inverse = new double[size][size];
 
         if (size == 2) {
             // Handle the 2x2 case
-            int a = matrix[0][0];
-            int b = matrix[0][1];
-            int c = matrix[1][0];
-            int d = matrix[1][1];
+            matrix[0][0] = matrix[0][0];
+            matrix[0][1] = -matrix[0][1];
+            matrix[1][0] = -matrix[1][0];
+            matrix[1][1] = matrix[1][1];
 
-            double detInverse = 1.0 / determinant;
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    if (matrix[i][j] < 0) {
+                        matrix[i][j] += 26;
+                    }
+                }
+            }
 
-            inverse[0][0] = detInverse * d;
-            inverse[0][1] = detInverse * -b;
-            inverse[1][0] = detInverse * -c;
-            inverse[1][1] = detInverse * a;
+            double detInverse = determinant;
+
+            inverse[0][0] = detInverse * matrix[1][1];
+            inverse[0][1] = detInverse * matrix[0][1];
+            inverse[1][0] = detInverse * matrix[1][0];
+            inverse[1][1] = detInverse * matrix[0][0];
+
         } else {
             int[][] adjMatrix = adjointMatrix(matrix);
 
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
-                    inverse[i][j] = adjMatrix[i][j] / (double) determinant;
+                    inverse[i][j] = adjMatrix[i][j] * (double) determinant;
                 }
             }
         }
@@ -163,12 +184,6 @@ class hillCipher {
 
     static String decrypt(String text, int[][] keyMatrix, int row) {
         StringBuilder decryptedText = new StringBuilder();
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < row; j++) {
-                System.out.print(keyMatrix[i][j] + " ");
-            }
-            System.out.println(" ");
-        }
         String[] te = combinationOfString(text, row);
         int determinant = determinantOfMatrix(keyMatrix);
         if (determinant == 0) {
@@ -179,13 +194,6 @@ class hillCipher {
             return "Decryption is not possible. The matrix is singular.";
         }
         int[][] charMatrix = new int[row][1];
-        System.out.println("The Inverse of a Matrix is: ");
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < row; j++) {
-                System.out.print(inverseMatrix[i][j] + " ");
-            }
-            System.out.println(" ");
-        }
         char t;
         for (int i = 0; i < te.length; i++) {
             for (int j = 0; j < row; j++) {
@@ -200,9 +208,13 @@ class hillCipher {
                 }
             }
             for (int p = 0; p < row; p++) {
-                System.out.println(newMatrix[p][0]);
                 t = (char) ((newMatrix[p][0] % 26) + 65);
                 decryptedText.append(t);
+            }
+        }
+        if (decryptedText.length() % 2 == 0) {
+            while (decryptedText.length() > 0 && decryptedText.charAt(decryptedText.length() - 1) == 'X') {
+                decryptedText.deleteCharAt(decryptedText.length() - 1);
             }
         }
         return decryptedText.toString();

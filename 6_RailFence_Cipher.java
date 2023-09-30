@@ -10,7 +10,7 @@ class railFenceCipher {
         String encryptedText = encrypt(text, key);
         System.out.println("The Encrypted Text is: " + encryptedText);
         String decryptedText = decrypt(encryptedText, key);
-        System.out.println("The Descrypted Text is: " + decryptedText);
+        System.out.println("The Decrypted Text is: " + decryptedText);
         input.close();
     }
 

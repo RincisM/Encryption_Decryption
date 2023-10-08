@@ -99,3 +99,57 @@ Z A B C D E F G H I J K L M N O P Q R S T U V W X Y
 
 Decrypting is done in a similar way but in reverse, using the same keyword to find the original message.
 The Vigenère cipher is a polyalphabetic cipher, which means it uses multiple substitution alphabets to make it more difficult to crack than simple substitution ciphers like the Caesar cipher. However, it's not as secure as modern encryption methods.
+
+
+**5. Hill Cipher**
+
+*Definition*
+The Hill Cipher is a polygraphic substitution cipher that operates on blocks of letters instead of individual letters. It uses matrix multiplication to encrypt and decrypt messages.
+
+Let's say we want to encrypt the message "HELLO" using a 2x2 Hill Cipher with the matrix:
+
+| 1  2 |
+| 3  5 |
+
+The first step is to convert the message to numbers (e.g., A=0, B=1, C=2, ... Z=25):
+
+H -> 7, E -> 4, L -> 11, L -> 11, O -> 14
+
+Then, we group the numbers into 2-letter blocks:
+
+74 11 14
+
+To encrypt, we multiply this block by the matrix:
+
+| 1  2 |   | 7  4 |   | 78 39 |   | 00 13 |   -> 00 13 -> N  N
+| 3  5 | x | 11 14 | = | 314 175 | = | 15 22 |   -> 15 22 -> P  W
+
+So, "HELLO" is encrypted to "NNPW."
+
+To decrypt, we use the inverse of the matrix and perform matrix multiplication similarly. In this case, it would transform "NNPW" back into "HELLO."
+
+
+
+**6. Rail Fence Cipher (Zigzag Cipher)**
+
+*Definition*
+The Rail Fence Cipher is a simple transposition cipher that rearranges the characters of a message to form a zigzag pattern.
+
+Let's say we want to encrypt the message "HELLO" using a 3-rail fence pattern:
+
+H . . . O . . .   (Rail 1)
+. E . L . . L .   (Rail 2)
+. . L . . . O .   (Rail 3)
+
+Reading the zigzag pattern from left to right gives us the ciphertext: "HOLELLO."
+
+To decrypt, we need to know the number of rails used (in this case, 3), and we recreate the zigzag pattern. Reading the ciphertext from left to right along the zigzag pattern, we get the original message: "HELLO."
+
+**7. DES (Data Encryption Standard)**
+
+*Definition*
+DES is a symmetric-key block cipher that operates on 64-bit blocks of data and uses a 56-bit key. It encrypts and decrypts data in blocks.
+
+If we want to encrypt the plaintext "HELLO" using a specific 56-bit key, the DES algorithm will apply a series of substitutions, permutations, and transformations to produce ciphertext, which is a series of bytes. The example provided earlier demonstrates how to use DES for encryption.
+
+To decrypt the ciphertext back to the original message, the same 56-bit key is used, and the DES decryption algorithm performs the reverse of the encryption process. The example provided earlier demonstrates how to use DES for decryption.

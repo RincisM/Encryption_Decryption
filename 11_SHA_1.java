@@ -8,10 +8,10 @@ class SHA_1 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         String text = JOptionPane.showInputDialog("Enter the Text: ");
-        String hashcode = md5Hash(text);
+        String hashcode = shaHash(text);
         JOptionPane.showMessageDialog(null,"The Hash Value for Text "+text+" is: "+hashcode);
         String newText = JOptionPane.showInputDialog(null, "Enter the Text to check: ");
-        if(hashcode.equals(md5Hash(newText))) {
+        if(hashcode.equals(shaHash(newText))) {
             JOptionPane.showMessageDialog(null,"Text Matched - Unlocked", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
         else {
@@ -20,11 +20,11 @@ class SHA_1 {
         input.close();
     }
 
-    public static String md5Hash(String text) {
+    public static String shaHash(String text) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1"); //Calling the MD5 algorithm
             byte[] messageDigest = md.digest(text.getBytes()); //Converting the text to byte array 
-            BigInteger number = new BigInteger(1, messageDigest); //Converting the byte array to a number representation
+            BigInteger number = new BigInteger(1, messageDigest); //Converting the byte array to a signum representation
             String hashtext = number.toString(16); //Converting the number representation to a hexadecimal value
 
             while(hashtext.length() < 32) {
